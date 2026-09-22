@@ -1,6 +1,11 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn, HttpStatusCode } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { tap } from 'rxjs';
+
+import { AuthService } from './auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const authService = inject(AuthService);
   const token = sessionStorage.getItem('jwt_token');
 
   if (!token) {
@@ -13,5 +18,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     },
   });
 
-  return next(authReq);
+  return next(authReq).pipe(
+    tap({
+      error: (error) => {
+        if (error?.status === HttpStatusCode.Unauthorized) {
+          authService.logout();
+        }
+      },
+    }),
+  );
 };

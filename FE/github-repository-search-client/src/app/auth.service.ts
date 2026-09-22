@@ -20,6 +20,13 @@ export class AuthService {
     return !!this.token();
   }
 
+  logout(): void {
+    sessionStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('logged_in_username');
+    this.token.set(null);
+    this.username.set(null);
+  }
+
   login(username: string) {
     return this.http.post<LoginResponse>('/api/Auth/login', { username }).pipe(
       tap((response) => {

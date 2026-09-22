@@ -1,6 +1,8 @@
 @if (auth.isAuthenticated()) {
-  <div>
-    <p>Welcome, {{ auth.username() }}</p>
+  <div class="authenticated-shell">
+    <header class="user-header">
+      <p>Welcome, {{ auth.username() }}</p>
+    </header>
     <app-repositories />
   </div>
 } @else {

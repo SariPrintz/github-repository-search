@@ -1,0 +1,161 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.repository-page {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem 0 2rem;
+}
+
+.page-header {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0 0.25rem;
+}
+
+.page-header h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.page-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.98rem;
+}
+
+.search-panel {
+  width: min(100%, 760px);
+  justify-self: center;
+  background: rgba(14, 116, 144, 0.03);
+  border: 1px solid rgba(59, 130, 246, 0.12);
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.search-field {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.search-field .mat-mdc-form-field-infix {
+  min-height: 38px;
+}
+
+.search-field .mat-mdc-text-field-wrapper {
+  min-height: 42px;
+}
+
+.search-button {
+  min-width: 150px;
+  min-height: 42px;
+  border-radius: 12px;
+}
+
+.status-message {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  font-weight: 500;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.error-message {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #9f1239;
+}
+
+.info-message {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.empty-message {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.repo-card {
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.repo-card.is-bookmarked {
+  border: 2px solid #f9a825;
+}
+
+mat-card-header {
+  align-items: center;
+}
+
+mat-card-title,
+mat-card-subtitle {
+  overflow-wrap: anywhere;
+}
+
+img[mat-card-avatar] {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.repo-meta {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+mat-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0 16px 16px;
+}
+
+@media (max-width: 640px) {
+  .search-panel {
+    padding: 0.875rem;
+  }
+
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+}
+

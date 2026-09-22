@@ -12,6 +12,10 @@ builder.Services.AddHttpClient<GitHubService>();
 
 builder.Services.AddScoped<JwtService>();
 
+// Session service and HttpContext accessor for per-user in-memory bookmarks
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<ISessionService, SessionService>();
+
 builder.Services.AddOpenApi(options =>
 {
     // Register JWT Bearer authentication scheme in OpenAPI
@@ -79,6 +83,15 @@ builder.Services
                 Encoding.UTF8.GetBytes(
                     builder.Configuration["Jwt:Key"]
                     ?? throw new InvalidOperationException("JWT key is missing.")))
+        };
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                var error = context.Exception.Message;
+
+                return Task.CompletedTask;
+            }
         };
     });
 

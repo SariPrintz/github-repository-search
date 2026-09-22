@@ -1,42 +1,83 @@
-<section>
-  <h2>Repository Search</h2>
+<section class="repository-page">
+  <header class="page-header">
+    <h2>Repository Explorer</h2>
+    <p>Search GitHub repositories by keyword</p>
+  </header>
 
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-      <label for="keyword">Search repositories</label>
-  <input
-    id="keyword"
-    type="text"
-    formControlName="keyword"
-    placeholder="Search by keyword"
-    aria-label="Search repositories"
-  />
-    <button type="submit" [disabled]="loading">
-      {{ loading ? 'Searching...' : 'Search' }}
-    </button>
-  </form>
+  <div class="search-panel">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-form">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search repositories</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          id="keyword"
+          type="text"
+          matInput
+          formControlName="keyword"
+          placeholder="Search by keyword"
+          aria-label="Search repositories"
+        />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading" class="search-button">
+        <mat-icon>{{ loading ? 'hourglass_top' : 'search' }}</mat-icon>
+        {{ loading ? 'Searching...' : 'Search' }}
+      </button>
+    </form>
+  </div>
 
   @if (errorMessage) {
-    <p>{{ errorMessage }}</p>
+    <p class="status-message error-message">{{ errorMessage }}</p>
   }
 
   @if (loading) {
-    <p>Loading repositories...</p>
+    <p class="status-message info-message">Loading repositories...</p>
   }
 
-@if (hasSearched && !loading && repositories.length === 0 && !errorMessage) {    <p>No repositories found.</p>
+  @if (hasSearched && !loading && repositories().length === 0 && !errorMessage) {
+    <p class="status-message empty-message">No repositories found.</p>
   }
 
-  @if (repositories.length > 0) {
-    <ul>
-      @for (repo of repositories; track repo.html_url) {
-        <li>
-          <a [href]="repo.html_url" target="_blank" rel="noopener noreferrer">
-            {{ repo.owner.login }}/{{ repo.name }}
-          </a>
-          <p>{{ repo.description || 'No description available.' }}</p>
-          <small>⭐ {{ repo.stargazers_count }}</small>
-        </li>
+  @if (repositories().length > 0) {
+    <div class="repo-grid">
+      @for (repo of repositories(); track repo.html_url) {
+        <mat-card class="repo-card" [class.is-bookmarked]="bookmarkedUrls().has(repo.html_url)">
+          <mat-card-header>
+            <img mat-card-avatar [src]="repo.owner.avatar_url" [alt]="repo.owner.login + ' avatar'" />
+            <mat-card-title>{{ repo.owner.login }}</mat-card-title>
+            <mat-card-subtitle>{{ repo.name }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p>{{ repo.description || 'No description available.' }}</p>
+            <div class="repo-meta" aria-label="Repository metadata">
+              <span>⭐ {{ repo.stargazers_count }}</span>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <a
+              mat-button
+              [href]="repo.html_url"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open repository on GitHub"
+            >
+              View Repo
+            </a>
+            <button
+              mat-icon-button
+              type="button"
+              [attr.aria-label]="bookmarkedUrls().has(repo.html_url) ? 'Remove bookmark' : 'Add bookmark'"
+              (click)="toggleBookmark(repo)"
+            >
+              <mat-icon>
+                {{ bookmarkedUrls().has(repo.html_url) ? 'bookmark' : 'bookmark_border' }}
+              </mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
       }
-    </ul>
+    </div>
   }
 </section>
