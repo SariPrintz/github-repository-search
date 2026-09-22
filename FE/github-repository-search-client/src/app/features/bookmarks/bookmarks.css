@@ -1,0 +1,25 @@
+section {
+  padding: 1rem 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+.bookmark-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .bookmark-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .bookmark-list {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,9 +1,30 @@
 @if (auth.isAuthenticated()) {
   <div class="authenticated-shell">
-    <header class="user-header">
+    <nav class="top-nav" aria-label="Main navigation">
+      <div class="nav-links">
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          aria-label="Go to repository search"
+        >
+          Repository Search
+        </a>
+        <a routerLink="/bookmarks" routerLinkActive="active" aria-label="Go to bookmarks">
+          Bookmarks
+        </a>
+      </div>
+
+      <button type="button" class="logout-button" (click)="auth.logout()" aria-label="Log out">
+        Logout
+      </button>
+    </nav>
+
+    <div class="user-greeting">
       <p>Welcome, {{ auth.username() }}</p>
-    </header>
-    <app-repositories />
+    </div>
+
+    <router-outlet />
   </div>
 } @else {
   <app-login />

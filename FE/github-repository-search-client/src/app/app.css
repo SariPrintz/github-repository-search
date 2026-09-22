@@ -10,23 +10,67 @@
   padding: 1rem 0 1.5rem;
 }
 
-.user-header {
+.user-greeting {
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 0.75rem 1rem;
-  border: 1px solid rgba(59, 130, 246, 0.14);
-  border-radius: 12px;
-  background: rgba(14, 116, 144, 0.03);
+  align-items: center;
+  padding: 0.9rem 0 0.7rem;
 }
 
-.user-header p {
+.user-greeting p {
   margin: 0;
-  color: #0f172a;
-  font-size: 0.98rem;
-  font-weight: 600;
+  color: #1d4ed8;
+  font-size: 1.4rem;
+  font-weight: 500;
   letter-spacing: 0.01em;
   text-align: center;
+}
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid rgba(59, 130, 246, 0.14);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.08), rgba(14, 116, 144, 0.04));
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: #0f172a;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: rgba(37, 99, 235, 0.12);
+  color: #1d4ed8;
+}
+
+.logout-button {
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  background: #2563eb;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #1d4ed8;
 }
 
 @media (max-width: 640px) {
@@ -35,7 +79,16 @@
     padding-top: 0.75rem;
   }
 
-  .user-header {
-    padding: 0.7rem 0.875rem;
+  .top-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-links {
+    justify-content: center;
+  }
+
+  .logout-button {
+    width: 100%;
   }
 }

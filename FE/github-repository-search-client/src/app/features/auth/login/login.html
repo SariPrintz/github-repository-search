@@ -1,14 +1,23 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-  <label for="username">Username</label>
-  <input id="username" type="text" formControlName="username" />
+<div class="login-page">
+  <div class="login-card" role="region" aria-label="Login form">
+    <div class="login-header">
+      <h1>Welcome</h1>
+      <p>Sign in to search GitHub repositories</p>
+    </div>
 
-  @if (loginForm.get('username')?.touched && loginForm.get('username')?.invalid) {
-    <div>Please enter a username.</div>
-  }
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+      <label for="username">Username</label>
+      <input id="username" type="text" formControlName="username" />
 
-  @if (loginError) {
-    <div>{{ loginError }}</div>
-  }
+      @if (loginForm.get('username')?.touched && loginForm.get('username')?.invalid) {
+        <div>Please enter a username.</div>
+      }
 
-  <button type="submit" [disabled]="loading || loginForm.invalid">Login</button>
-</form>
+      @if (loginError) {
+        <div>{{ loginError }}</div>
+      }
+
+      <button type="submit" [disabled]="loading || loginForm.invalid">Login</button>
+    </form>
+  </div>
+</div>

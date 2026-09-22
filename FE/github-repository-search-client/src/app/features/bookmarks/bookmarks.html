@@ -1,0 +1,48 @@
+<section>
+  <h2>Bookmarked Repositories</h2>
+
+  @if (bookmarks().length === 0) {
+    <p>No bookmarked repositories yet.</p>
+  }
+
+  @if (bookmarks().length > 0) {
+    <div class="bookmark-list">
+      @for (repo of bookmarks(); track repo.html_url) {
+        <mat-card class="bookmark-card">
+          <mat-card-header>
+            <img mat-card-avatar [src]="repo.owner.avatar_url" [alt]="repo.owner.login + ' avatar'" />
+            <mat-card-title>{{ repo.owner.login }}</mat-card-title>
+            <mat-card-subtitle>{{ repo.name }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p>{{ repo.description || 'No description available.' }}</p>
+            <div class="repo-meta" aria-label="Repository metadata">
+              <span>⭐ {{ repo.stargazers_count }}</span>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <a
+              mat-button
+              [href]="repo.html_url"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View repository on GitHub"
+            >
+              View Repo
+            </a>
+            <button
+              mat-icon-button
+              type="button"
+              aria-label="Remove bookmark"
+              (click)="removeBookmark(repo)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  }
+</section>
