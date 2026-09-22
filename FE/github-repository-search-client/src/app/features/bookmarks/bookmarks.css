@@ -6,6 +6,12 @@ h2 {
   margin: 0;
 }
 
+.error-message {
+  margin: 0.75rem 0 0;
+  color: #b91c1c;
+  font-weight: 500;
+}
+
 .bookmark-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

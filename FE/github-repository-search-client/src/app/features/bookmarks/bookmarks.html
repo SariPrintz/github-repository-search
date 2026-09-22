@@ -1,7 +1,11 @@
 <section>
   <h2>Bookmarked Repositories</h2>
 
-  @if (bookmarks().length === 0) {
+  @if (errorMessage()) {
+    <p class="error-message">{{ errorMessage() }}</p>
+  }
+
+  @if (bookmarks().length === 0 && !errorMessage()) {
     <p>No bookmarked repositories yet.</p>
   }
 

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { AuthService } from './auth.service';
@@ -12,7 +12,6 @@ import { Repositories } from './features/repositories/repositories';
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('github-repository-search-client');
   protected readonly auth = inject(AuthService);
 }
 

@@ -16,14 +16,16 @@ import { RepositoryItem } from '../../repository.service';
 export class BookmarksComponent {
   readonly bookmarkService = inject(BookmarkService);
   readonly bookmarks = signal<RepositoryItem[]>([]);
+  readonly errorMessage = signal<string | null>(null);
 
   constructor() {
     this.bookmarkService.getBookmarks().subscribe({
       next: (result) => {
         this.bookmarks.set(result);
+        this.errorMessage.set(null);
       },
-      error: (error) => {
-        console.error(error);
+      error: () => {
+        this.errorMessage.set('Unable to load bookmarks. Please try again.');
       },
     });
   }
@@ -32,9 +34,6 @@ export class BookmarksComponent {
     this.bookmarkService.removeBookmark(repository.html_url).subscribe({
       next: () => {
         this.bookmarks.set(this.bookmarks().filter((repo) => repo.html_url !== repository.html_url));
-      },
-      error: (error) => {
-        console.error(error);
       },
     });
   }

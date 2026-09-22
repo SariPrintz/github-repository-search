@@ -37,9 +37,6 @@ export class Repositories {
       next: (bookmarks) => {
         this.bookmarkedUrls.set(new Set(bookmarks.map((bookmark) => bookmark.html_url)));
       },
-      error: (error) => {
-        console.error('Failed to load bookmarks:', error);
-      },
     });
   }
 
@@ -52,9 +49,10 @@ export class Repositories {
           const updated = new Set(this.bookmarkedUrls());
           updated.delete(repository.html_url);
           this.bookmarkedUrls.set(updated);
+          this.errorMessage = null;
         },
-        error: (error) => {
-          console.error('Failed to remove bookmark:', error);
+        error: () => {
+          this.errorMessage = 'Unable to remove bookmark. Please try again.';
         },
       });
       return;
@@ -65,9 +63,10 @@ export class Repositories {
         const updated = new Set(this.bookmarkedUrls());
         updated.add(repository.html_url);
         this.bookmarkedUrls.set(updated);
+        this.errorMessage = null;
       },
-      error: (error) => {
-        console.error('Failed to add bookmark:', error);
+      error: () => {
+        this.errorMessage = 'Unable to add bookmark. Please try again.';
       },
     });
   }
@@ -91,11 +90,10 @@ export class Repositories {
         this.loading = false;
         this.loadBookmarks();
       },
-      error: (error) => {
+      error: () => {
         this.repositories.set([]);
         this.errorMessage = 'Unable to load repositories. Please try again.';
         this.loading = false;
-        console.error('Repository search failed:', error);
       },
     });
   }
