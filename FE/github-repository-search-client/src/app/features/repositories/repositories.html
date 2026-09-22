@@ -1,0 +1,42 @@
+<section>
+  <h2>Repository Search</h2>
+
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <label for="keyword">Search repositories</label>
+  <input
+    id="keyword"
+    type="text"
+    formControlName="keyword"
+    placeholder="Search by keyword"
+    aria-label="Search repositories"
+  />
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Searching...' : 'Search' }}
+    </button>
+  </form>
+
+  @if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+  }
+
+  @if (loading) {
+    <p>Loading repositories...</p>
+  }
+
+@if (hasSearched && !loading && repositories.length === 0 && !errorMessage) {    <p>No repositories found.</p>
+  }
+
+  @if (repositories.length > 0) {
+    <ul>
+      @for (repo of repositories; track repo.html_url) {
+        <li>
+          <a [href]="repo.html_url" target="_blank" rel="noopener noreferrer">
+            {{ repo.owner.login }}/{{ repo.name }}
+          </a>
+          <p>{{ repo.description || 'No description available.' }}</p>
+          <small>⭐ {{ repo.stargazers_count }}</small>
+        </li>
+      }
+    </ul>
+  }
+</section>
