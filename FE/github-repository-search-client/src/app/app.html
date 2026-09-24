@@ -10,12 +10,22 @@
         >
           Repository Search
         </a>
-        <a routerLink="/bookmarks" routerLinkActive="active" aria-label="Go to bookmarks">
+        <a
+          routerLink="/bookmarks"
+          routerLinkActive="active"
+          aria-label="Go to bookmarks"
+          (click)="logBookmarkNavigation()"
+        >
           Bookmarks
         </a>
       </div>
 
-      <button type="button" class="logout-button" (click)="auth.logout()" aria-label="Log out">
+      <button
+        type="button"
+        class="logout-button"
+        (click)="logLogoutState()"
+        aria-label="Log out"
+      >
         Logout
       </button>
     </nav>

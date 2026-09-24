@@ -12,6 +12,6 @@ import { Repositories } from './features/repositories/repositories';
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly auth = inject(AuthService);
+  public readonly auth = inject(AuthService);
 }
 

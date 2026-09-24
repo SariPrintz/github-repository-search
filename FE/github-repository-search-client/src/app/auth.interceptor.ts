@@ -23,7 +23,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       error: (error) => {
         if (error?.status === HttpStatusCode.Unauthorized) {
           authService.logout();
-        }
+        } 
       },
     }),
   );

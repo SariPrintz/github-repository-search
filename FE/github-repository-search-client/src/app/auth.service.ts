@@ -16,10 +16,15 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient) {}
 
-  isAuthenticated(): boolean {
-    return !!this.token();
-  }
+isAuthenticated(): boolean {
+    const token = this.token() ?? sessionStorage.getItem('jwt_token');
 
+    if (token && !this.token()) {
+      this.token.set(token);
+    }
+
+    return !!token;
+  }
   logout(): void {
     sessionStorage.removeItem('jwt_token');
     sessionStorage.removeItem('logged_in_username');
