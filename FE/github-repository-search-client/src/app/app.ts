@@ -13,5 +13,11 @@ import { Repositories } from './features/repositories/repositories';
 })
 export class App {
   public readonly auth = inject(AuthService);
+
+  
+
+  public logLogoutState(): void {
+    this.auth.logout();
+  }
 }
 
